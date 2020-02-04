@@ -1,0 +1,25 @@
+.Board {
+	box-sizing: border-box;
+	position: relative;
+	width: 600px;
+	height: 600px;
+	margin: auto;
+	background-color: #255627;
+	border: 3px solid #000;
+	border-radius: 5px;
+	
+	&:before {
+		content: "";
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: -15px;
+		background: url("../../assets/images/wood-bg.jpg");
+		background-size: cover;
+		border: 2px solid #000;
+		border-radius: 10px;
+		z-index: -1;
+	}
+}

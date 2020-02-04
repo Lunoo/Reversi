@@ -1,12 +1,14 @@
 import React from 'react';
-import './App.css';
+
+import './App.scss';
+import Board from "./containers/Board/Board";
 
 function App() {
-  return (
-    <div className="App">
-
-    </div>
-  );
+    return (
+        <div className="App">
+            <Board/>
+        </div>
+    );
 }
 
 export default App;
