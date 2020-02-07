@@ -13,7 +13,7 @@ function Disk(props) {
                 <div className={styles.front}/>
                 <div className={styles.back}/>
                 <div className={styles.side}>
-                    {[...Array(FACETS)].map(i => {
+                    {[...Array(FACETS)].map((spoke, i) => {
                         return <div key={i} className={styles.spoke}/>
                     })}
                 </div>

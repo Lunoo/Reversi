@@ -1,8 +1,8 @@
 .board {
 	box-sizing: border-box;
 	position: relative;
-	width: 600px;
-	height: 600px;
+	width: 564px;
+	height: 564px;
 	margin: auto;
 	background-color: #255627;
 	background-image: radial-gradient(#255627 50%, #264119);
@@ -39,8 +39,8 @@
 
 @media (max-width: 560px), (max-height: 560px) {
 	.board {
-		width: 400px;
-		height: 400px;
+		width: 404px;
+		height: 404px;
 	}
 }
 

@@ -5,32 +5,37 @@ import styles from './Board.module.scss';
 
 class Board extends Component {
     state = {
-        isNotEmpty: [],
-        color: []
+        boardState: {}
     };
 
-    cellClicked = (x, y) => {
-        let newIsNotEmpty = [...this.state.isNotEmpty];
-        newIsNotEmpty[x * 100 + y] = true;
+    cellClicked = (key) => {
+        let newBoardState = {...this.state.boardState};
+        let newCell = newBoardState[key];
+        newBoardState[key] = {
+            isNotEmpty: true,
+            color: newCell?.color === 'white' ? 'black' : 'white'
+        };
 
-        let newColor = [...this.state.color];
-        newColor[x * 100 + y] = this.state.color[x * 100 + y] === 'white' ? 'black' : 'white';
+        this.setState({boardState: newBoardState});
+        console.log(key, newBoardState);
+    };
 
-        this.setState({isNotEmpty: newIsNotEmpty, color: newColor});
-
-        console.log(x, y, this.state);
+    getKey = (x, y) => {
+        return x * 100 + y;
     };
 
     render() {
         const cells = [];
         for (let y = 0; y < 8; y++) {
             for (let x = 0; x < 8; x++) {
+                const key = this.getKey(x, y);
+                const cellState = this.state.boardState[key];
                 cells.push(
-                    <Cell key={'' + x + y}
-                          isMarked={[2, 6].includes(x) && [2, 6].includes(y)}
-                          isNotEmpty={this.state.isNotEmpty[x * 100 + y]}
-                          color={this.state.color[x * 100 + y]}
-                          clicked={() => this.cellClicked(x, y)}
+                    <Cell isMarked={[2, 6].includes(x) && [2, 6].includes(y)}
+                          key={key}
+                          isNotEmpty={cellState?.isNotEmpty}
+                          color={cellState?.color}
+                          clicked={() => this.cellClicked(key)}
                     />
                 )
             }

@@ -1,7 +1,7 @@
 // --- Settings --- //
 
 $disk_diam: 100%;
-$desk_depth: 10px; // $disk_diam * 0.1
+$desk_depth: 7px; // $disk_diam * 0.1
 
 $pi: 3.14159265359;
 $_precision: 10;
@@ -9,193 +9,262 @@ $_precision: 10;
 // --- Functions --- //
 
 @function pow($base, $exp) {
-    $value: $base;
-    @if $exp > 1 {
-        @for $i from 2 through $exp {
-            $value: $value * $base;
-        }
-    }
-    @if $exp < 1 {
-        @for $i from 0 through -$exp {
-            $value: $value / $base;
-        }
-    }
-    @return $value;
+	$value: $base;
+	@if $exp > 1 {
+		@for $i from 2 through $exp {
+			$value: $value * $base;
+		}
+	}
+	@if $exp < 1 {
+		@for $i from 0 through -$exp {
+			$value: $value / $base;
+		}
+	}
+	@return $value;
 }
 
 @function fact($num) {
-    $fact: 1;
-    @if $num > 0 {
-        @for $i from 1 through $num {
-            $fact: $fact * $i;
-        }
-    }
-    @return $fact;
+	$fact: 1;
+	@if $num > 0 {
+		@for $i from 1 through $num {
+			$fact: $fact * $i;
+		}
+	}
+	@return $fact;
 }
 
 @function toUnitlessRad($angle) {
-    @if unit($angle) == "deg" {
-        $angle: $angle / 180deg * $pi;
-    }
-    @if unit($angle) == "rad" {
-        $angle: $angle / 1rad;
-    }
-    @return $angle;
+	@if unit($angle) == "deg" {
+		$angle: $angle / 180deg * $pi;
+	}
+	@if unit($angle) == "rad" {
+		$angle: $angle / 1rad;
+	}
+	@return $angle;
 }
 
 @function sin($angle) {
-    $a: toUnitlessRad($angle);
-    $sin: $a;
-    @for $n from 1 through $_precision {
-        $sin: $sin + (pow(-1, $n) / fact(2 * $n + 1) ) * pow($a, (2 * $n + 1));
-    }
-    @return $sin;
+	$a: toUnitlessRad($angle);
+	$sin: $a;
+	@for $n from 1 through $_precision {
+		$sin: $sin + (pow(-1, $n) / fact(2 * $n + 1) ) * pow($a, (2 * $n + 1));
+	}
+	@return $sin;
 }
 
 @function cos($angle) {
-    $a: toUnitlessRad($angle);
-    $cos: 1;
-    @for $n from 1 through $_precision {
-        $cos: $cos + (pow(-1, $n) / fact(2 * $n)) * pow($a, 2 * $n);
-    }
-    @return $cos;
+	$a: toUnitlessRad($angle);
+	$cos: 1;
+	@for $n from 1 through $_precision {
+		$cos: $cos + (pow(-1, $n) / fact(2 * $n)) * pow($a, 2 * $n);
+	}
+	@return $cos;
 }
 
 @function tan($angle) {
-    @return sin($angle) / cos($angle);
+	@return sin($angle) / cos($angle);
 }
 
 // --- Wrapper --- //
 .wrapper {
-    height: $disk_diam;
-    width: $disk_diam;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: ($disk_diam * -0.5);
-    margin-left: ($disk_diam * -0.5);
+	position: absolute;
+	left: 2px;
+	right: 2px;
+	top: 2px;
+	bottom: 2px;
 }
 
 // --- The Disk --- //
 .disk {
-    position: absolute;
-    height: $disk_diam;
-    width: $disk_diam;
-    z-index: 1;
-
-    transform-style: preserve-3d;
-    transform-origin: 50%;
-    transition: transform .5s ease;
-
-    .white & {
-        transform: rotateX(0deg);
-    }
-
-    .black & {
-        transform: rotateX(180deg);
-    }
-
-    // --- Faces --- //
-    .front,
-    .back {
-        position: absolute;
-        height: $disk_diam;
-        width: $disk_diam;
-        border-radius: 50%;
-    }
-
-    .front {
-        background: #fff;
-        box-shadow: inset 0px -5px 10px 5px hsla(0, 0, 77%, 1);
-        transform: translateZ($desk_depth / 2);
-
-        &:before {
-            content: '';
-            position: absolute;
-            left: 10%;
-            right: 10%;
-            top: 10%;
-            bottom: 10%;
-            border-radius: 50%;
-            box-shadow: inset 0 10px 10px 5px hsla(0, 0, 77%, 1); //#c5c5c5
-        }
-    }
-
-    .back {
-        background: #1b1b1b;
-        box-shadow: inset 0px -10px 15px 10px hsl(0, 0%, 25%);
-        transform: translateZ($desk_depth / -2) rotateY(180deg);
-
-        &:before {
-            content: '';
-            position: absolute;
-            left: 10%;
-            right: 10%;
-            top: 10%;
-            bottom: 10%;
-            border-radius: 50%;
-
-            // box-shadow: inset 0px 10px 10px 5px hsla(0, 0, 23%, 1);
-            background: #505050;
-            box-shadow: inset 0px -100px 100px -5px #171616;
-        }
-    }
+	position: absolute;
+	height: $disk_diam;
+	width: $disk_diam;
+	z-index: 1;
+	
+	transform-style: preserve-3d;
+	transform-origin: 50%;
+	transition: transform .5s ease-out;
+	
+	.white & {
+		transform: rotateX(0deg);
+	}
+	
+	.black & {
+		transform: rotateX(180deg);
+	}
+	
+	// --- Faces --- //
+	.front,
+	.back {
+		position: absolute;
+		height: $disk_diam;
+		width: $disk_diam;
+		border-radius: 50%;
+	}
+	
+	.front {
+		background: #fff;
+		box-shadow: inset 0px -5px 10px 5px hsla(0, 0, 77%, 1);
+		transform: translateZ($desk_depth / 2);
+		
+		&:before {
+			content: '';
+			position: absolute;
+			left: 10%;
+			right: 10%;
+			top: 10%;
+			bottom: 10%;
+			border-radius: 50%;
+			box-shadow: inset 0 10px 10px 5px hsla(0, 0, 77%, 1); //#c5c5c5
+		}
+	}
+	
+	.back {
+		background: #1b1b1b;
+		box-shadow: inset 0px -10px 15px 10px hsl(0, 0%, 23%);
+		transform: translateZ($desk_depth / -2) rotateY(180deg);
+		
+		&:before {
+			content: '';
+			position: absolute;
+			left: 10%;
+			right: 10%;
+			top: 10%;
+			bottom: 10%;
+			border-radius: 50%;
+			
+			background: #505050;
+			box-shadow: inset 0px -35px 35px -5px #171616;
+		}
+	}
 }
 
 .side {
-    // How many facets you want
-    $facets: 32;
-    // How many spokes you need
-    $spokes: $facets / 2;
-    // Help figure out the length of each facet
-    $degs: sin(3.14 / $facets);
-    // Get the length
-    $facet_length: $disk_diam * $degs;
+	// How many facets you want
+	$facets: 32;
+	// How many spokes you need
+	$spokes: $facets / 2;
+	// Help figure out the length of each facet
+	$degs: sin(3.14 / $facets);
+	// Get the length
+	$facet_length: $disk_diam * $degs;
+	
+	transform: translateX($disk_diam * 0.45);
+	transform-style: preserve-3d;
+	backface-visibility: hidden;
+	height: 100%;
+	
+	// Structural Component
+	.spoke {
+		height: $disk_diam;
+		width: $desk_depth;
+		position: absolute;
+		
+		transform-style: preserve-3d;
+		backface-visibility: hidden;
+		
+		// The Facets
+		&:before,
+		&:after {
+			content: '';
+			height: $facet_length;
+			width: $desk_depth;
+			position: absolute;
+			transform: rotateX(((180deg - (360 / $facets)) / 2)); // Get the right angle
+			
+			background: hsl(30, 30%, 30%);
+			background: linear-gradient(to left, #2b2b2b 0%, #2b2b2b 50%, #c8c8c8 50%, #c8c8c8 100%);
+			background-size: 100% (($facets * $facet_length) / 144);
+		}
+		
+		// One at each end
+		&:before {
+			transform-origin: top center;
+		}
+		
+		&:after {
+			bottom: 0;
+			transform-origin: center bottom;
+		}
+	}
+	
+	
+	// This is a loop that positions the spokes
+	@for $i from 1 through $facets {
+		.spoke:nth-child(#{$i}) {
+			transform: rotateY(90deg) rotateX((180deg / $spokes) * $i);
+		}
+	}
+}
 
-    transform: translateX($disk_diam * 0.45);
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    height: 100%;
+@media (max-width: 660px), (max-height: 660px) {
+	$desk_depth: 6px;
+	
+	.disk {
+		.front {
+			transform: translateZ($desk_depth / 2);
+		}
+		
+		.back {
+			transform: translateZ($desk_depth / -2) rotateY(180deg);
+		}
+	}
+	
+	.side {
+		.spoke {
+			width: $desk_depth;
+			
+			&:before, &:after {
+				width: $desk_depth;
+			}
+		}
+	}
+}
 
-    // Structural Component
-    .spoke {
-        height: $disk_diam;
-        width: $desk_depth;
-        position: absolute;
+@media (max-width: 560px), (max-height: 560px) {
+	$desk_depth: 5px;
+	
+	.disk {
+		.front {
+			transform: translateZ($desk_depth / 2);
+		}
+		
+		.back {
+			transform: translateZ($desk_depth / -2) rotateY(180deg);
+		}
+	}
+	
+	.side {
+		.spoke {
+			width: $desk_depth;
+			
+			&:before, &:after {
+				width: $desk_depth;
+			}
+		}
+	}
+}
 
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-
-        // The Facets
-        &:before,
-        &:after {
-            content: '';
-            height: $facet_length;
-            width: $desk_depth;
-            position: absolute;
-            transform: rotateX(((180deg - (360 / $facets)) / 2)); // Get the right angle
-
-            background: hsl(30, 30%, 30%);
-            background: linear-gradient(to left, #2b2b2b 0%, #2b2b2b 50%, #c8c8c8 50%, #c8c8c8 100%);
-            background-size: 100% (($facets * $facet_length) / 144);
-        }
-
-        // One at each end
-        &:before {
-            transform-origin: top center;
-        }
-
-        &:after {
-            bottom: 0;
-            transform-origin: center bottom;
-        }
-    }
-
-
-    // This is a loop that positions the spokes
-    @for $i from 1 through $facets {
-        .spoke:nth-child(#{$i}) {
-            transform: rotateY(90deg) rotateX((180deg / $spokes) * $i);
-        }
-    }
+@media (max-width: 460px), (max-height: 460px) {
+	$desk_depth: 4px;
+	
+	.disk {
+		.front {
+			transform: translateZ($desk_depth / 2);
+		}
+		
+		.back {
+			transform: translateZ($desk_depth / -2) rotateY(180deg);
+		}
+	}
+	
+	.side {
+		.spoke {
+			width: $desk_depth;
+			
+			&:before, &:after {
+				width: $desk_depth;
+			}
+		}
+	}
 }

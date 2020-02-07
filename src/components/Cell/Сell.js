@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './Cell.module.scss';
-import Disk from "../Disk/Disk";
+import Disk from '../Disk/Disk';
 
 function Cell(props) {
     const classes = [styles.cell];
