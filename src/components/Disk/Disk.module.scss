@@ -1,0 +1,234 @@
+// Settings -------------------
+$coin_diam: 70px;
+$coin_depth: ($coin_diam * 0.1);
+$spin_speed: 10s;
+
+$pi: 3.14159265359;
+$_precision: 10;
+
+@function pow($base, $exp) {
+	$value: $base;
+	@if $exp > 1 {
+		@for $i from 2 through $exp {
+			$value: $value * $base;
+		}
+	}
+	@if $exp < 1 {
+		@for $i from 0 through -$exp {
+			$value: $value / $base;
+		}
+	}
+	@return $value;
+}
+
+@function fact($num) {
+	$fact: 1;
+	@if $num > 0 {
+		@for $i from 1 through $num {
+			$fact: $fact * $i;
+		}
+	}
+	@return $fact;
+}
+
+@function _to_unitless_rad($angle) {
+	@if unit($angle) == "deg" {
+		$angle: $angle / 180deg * $pi;
+	}
+	@if unit($angle) == "rad" {
+		$angle: $angle / 1rad;
+	}
+	@return $angle;
+}
+
+@function sin($angle) {
+	$a: _to_unitless_rad($angle);
+	$sin: $a;
+	@for $n from 1 through $_precision {
+		$sin: $sin + (pow(-1, $n) / fact(2 * $n + 1) ) * pow($a, (2 * $n + 1));
+	}
+	@return $sin;
+}
+
+@function cos($angle) {
+	$a: _to_unitless_rad($angle);
+	$cos: 1;
+	@for $n from 1 through $_precision {
+		$cos: $cos + ( pow(-1,$n) / fact(2*$n) ) * pow($a,2*$n);
+	}
+	@return $cos;
+}
+
+@function tan($angle) {
+	@return sin($angle) / cos($angle);
+}
+
+// Wrapper --------------------
+.purse {
+	height: $coin_diam;
+	width: $coin_diam;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: ($coin_diam * -0.5);
+	margin-left: ($coin_diam * -0.5);
+	//box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, .5);
+	//border-radius: 50%;
+}
+
+// The Coin -------------------
+.coin {
+	height: $coin_diam;
+	width: $coin_diam;
+	position: absolute;
+	
+	transform-style: preserve-3d;
+	transform-origin: 50%;
+	transition: transform .5s ease;
+	
+	.white & {
+		transform: rotateX(0deg);
+	}
+	
+	.black & {
+		transform: rotateX(180deg);
+	}
+	
+	
+	// Faces --------------------
+	.front,
+	.back {
+		position: absolute;
+		height: $coin_diam;
+		width: $coin_diam;
+		border-radius: 50%;
+	}
+	
+	.front {
+		background: #fff;
+		box-shadow: inset 0px -5px 10px 5px hsla(0, 0, 77%, 1);
+		transform: translateZ(($coin_depth / 2));
+		
+		&:before {
+			content: '';
+			position: absolute;
+			left: 10%;
+			right: 10%;
+			top: 10%;
+			bottom: 10%;
+			border-radius: 50%;
+			box-shadow: inset 0 10px 10px 5px hsla(0, 0, 77%, 1); //#c5c5c5
+		}
+	}
+	
+	.back {
+		background: #1b1b1b;
+		box-shadow: inset 0px -10px 15px 10px hsl(0, 0%, 25%);
+		transform: translateZ(($coin_depth / -2)) rotateY(180deg);
+		
+		&:before {
+			content: '';
+			position: absolute;
+			left: 10%;
+			right: 10%;
+			top: 10%;
+			bottom: 10%;
+			border-radius: 50%;
+			
+			// box-shadow: inset 0px 10px 10px 5px hsla(0, 0, 23%, 1);
+			background: #505050;
+			box-shadow: inset 0px -100px 100px -5px #171616;
+		}
+	}
+	
+	// The Side -----------------
+	// Reveal the ‘secret’ by adding
+	// .skeleton to the coin element.
+	.side {
+		// How many facets you want
+		$facets: 32;
+		// How many spokes you need
+		$spokes: ($facets / 2);
+		// Help figure out the length of each facet
+		$degs: sin(3.14 / ($facets));
+		// Get the length
+		$facet_length: ($coin_diam * $degs);
+		
+		transform: translateX(($coin_diam * 0.45));
+		transform-style: preserve-3d;
+		backface-visibility: hidden;
+		
+		// Structural Component
+		.spoke {
+			height: ($coin_diam);
+			width: ($coin_depth);
+			position: absolute;
+			
+			transform-style: preserve-3d;
+			backface-visibility: hidden;
+			
+			// The Facets
+			&:before,
+			&:after {
+				content: '';
+				display: block;
+				height: $facet_length;
+				width: ($coin_depth);
+				position: absolute;
+				transform: rotateX(((180deg - (360 / $facets)) / 2)); // Get the right angle
+				
+				background: hsl(30, 30%, 30%);
+				background: linear-gradient(to left, #2b2b2b 0%, #2b2b2b 50%, #c8c8c8 50%, #c8c8c8 100%);
+				background-size: 100% (($facets * $facet_length) / 144);
+			}
+			
+			// One at each end
+			&:before {
+				transform-origin: top center;
+			}
+			
+			&:after {
+				bottom: 0;
+				transform-origin: center bottom;
+			}
+		}
+		
+		
+		// This is a loop that positions the spokes
+		
+		@for $i from 1 through 32 {
+			.spoke:nth-child(#{$i}) {
+				transform: rotateY(90deg) rotateX((180deg / $spokes) * $i);
+			}
+		}
+		
+		.spoke:nth-child(1) {
+			transform: rotateY(90deg) rotateX((180deg / $spokes) * 1);
+		}
+	}
+	
+	// X Ray -------------------
+	&.skeleton {
+		.front, .back {
+			display: none;
+		}
+		
+		.side {
+			&, .spoke, .spoke:before, .spoke:after {
+				backface-visibility: visible;
+			}
+			
+			.spoke {
+				//background: fadeout(#111, 90%);
+				
+				&:before {
+					//background: fadeout(#444, 80%);
+				}
+				
+				&:after {
+					//background: fadeout(#222, 80%);
+				}
+			}
+		}
+	}
+}

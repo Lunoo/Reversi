@@ -1,12 +1,17 @@
-.Board {
+.board {
 	box-sizing: border-box;
 	position: relative;
 	width: 600px;
 	height: 600px;
 	margin: auto;
 	background-color: #255627;
-	border: 3px solid #000;
+	background-image: radial-gradient(#255627 50%, #264119);
+	border: 2px solid #000;
 	border-radius: 5px;
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	transition: all .5s ease;
 	
 	&:before {
 		content: "";
@@ -20,6 +25,30 @@
 		background-size: cover;
 		border: 2px solid #000;
 		border-radius: 10px;
+		box-shadow: 0 2px 3px 0 #000;
 		z-index: -1;
+	}
+}
+
+@media (max-width: 660px), (max-height: 660px) {
+	.board {
+		width: 500px;
+		height: 500px;
+	}
+}
+
+@media (max-width: 560px), (max-height: 560px) {
+	.board {
+		width: 400px;
+		height: 400px;
+	}
+}
+
+@media (max-width: 460px), (max-height: 460px) {
+	.board {
+		width: 324px;
+		height: 324px;
+		min-width: 324px;
+		min-height: 324px;
 	}
 }
