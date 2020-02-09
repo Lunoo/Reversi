@@ -1,3 +1,5 @@
+$board_size: 8;
+
 .board {
 	box-sizing: border-box;
 	position: relative;
@@ -9,8 +11,7 @@
 	border: 2px solid #000;
 	border-radius: 5px;
 	display: grid;
-	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template: repeat($board_size, 1fr) / repeat($board_size, 1fr);
 	transition: all .5s ease;
 	
 	&:before {

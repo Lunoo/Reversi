@@ -1,0 +1,81 @@
+.square {
+	position: relative;
+	border: 1px solid #000;
+	
+	&.withMark {
+		position: relative;
+		
+		&:before {
+			content: "";
+			position: absolute;
+			left: -5px;
+			top: -5px;
+			background: #000;
+			border: 4px solid #000;
+			border-radius: 50%;
+		}
+	}
+	
+	&.validMove {
+		&:after {
+			content: "";
+			position: absolute;
+			left: 6px;
+			right: 6px;
+			top: 6px;
+			bottom: 6px;
+			border-radius: 50%;
+			transition: box-shadow .1s ease;
+		}
+		
+		[data-player="white"] & {
+			&:after {
+				box-shadow: 0 0 6px 0 #fff;
+			}
+			
+			&:hover:after {
+				box-shadow: 0 0 6px 2px #fff;
+			}
+		}
+		
+		[data-player="black"] & {
+			&:after {
+				box-shadow: 0 0 6px 0 #000;
+			}
+			
+			&:hover:after {
+				box-shadow: 0 0 6px 2px #000;
+			}
+		}
+	}
+	
+	&.mayBeCaptured {
+		&:after {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			margin: auto;
+			top: calc(50% - 8px);
+			bottom: auto;
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			opacity: .6;
+			transition: background-color .1s ease;
+			z-index: 1;
+		}
+		
+		[data-player="white"] & {
+			&:after {
+				background-color: #fff;
+			}
+		}
+		
+		[data-player="black"] & {
+			&:after {
+				background-color: #000;
+			}
+		}
+	}
+}
