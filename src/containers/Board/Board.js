@@ -7,6 +7,7 @@ const BOARD_SIZE = 8;
 
 class Board extends Component {
     state = {
+        currentPlayer: 'black',
         squares: {
             33: {
                 key: 33,
@@ -33,29 +34,38 @@ class Board extends Component {
                 mayBeCaptured: false
             }
         },
-        currentPlayer: 'black',
         validMoves: [
             32, 23, 54, 45
         ]
+    };
+
+    copyBoardState = (state) => {
+        const newState = {...state};
+        Object.values(newState).forEach((square) => {
+            newState[square.key] = {...square};
+        });
+
+        return newState;
     };
 
     isSquareNotEmpty = (key) => {
         return !!this.state.squares[key]?.isNotEmpty;
     };
 
-    getAllValidMoves = (boardState) => {
+    getAllValidMoves = (boardState, player) => {
         const validMoves = [];
         for (let y = 0; y < BOARD_SIZE; y++) {
             for (let x = 0; x < BOARD_SIZE; x++) {
                 const key = this.getKey(x, y);
 
                 if (this.isSquareNotEmpty(key)) {
+                    // skip the already taken squares
                     continue;
                 }
 
-                const neighbors = this.getAllNeighborsWithColor(boardState, key, this.state.currentPlayer);
-                const capturedDisks = this.getAllCapturedDisks(boardState, key, neighbors);
-
+                const oppositeColor = this.getNextPlayer(player);
+                const capturedDisks = this.getAllCapturedDisksWithColor(boardState, key, oppositeColor);
+                // check if the player has valid moves
                 if (capturedDisks.length > 0) {
                     validMoves.push(key);
                 }
@@ -66,22 +76,28 @@ class Board extends Component {
     };
 
 
-    getAllCapturedDisks = (boardState, key, neighbors) => {
+    getAllCapturedDisksWithColor = (boardState, key, color) => {
+        // get all possible directions (neighbors) for capturing disks
+        const neighbors = this.getAllNeighborsWithColor(boardState, key, color);
+
         let capturedDisks = [];
         neighbors.forEach((square) => {
+            const addedDisks = [];
+            // calculate actual direction
             const vector = square.key - key;
-            const disks = [];
 
             let squareToCheck = square;
+            // looking for a player color disc or an empty square or the end of the board
             while (squareToCheck && squareToCheck.color === square.color) {
-                disks.push({...squareToCheck});
+                addedDisks.push({...squareToCheck});
                 squareToCheck = boardState[squareToCheck.key + vector];
             }
 
             if (squareToCheck) {
+                // if such a disk is located - add all the passed disks to the array of captured
                 capturedDisks = [
                     ...capturedDisks,
-                    ...disks
+                    ...addedDisks
                 ]
             }
         });
@@ -117,10 +133,9 @@ class Board extends Component {
             return;
         }
 
-        const newBoardState = {...this.state.squares};
+        const newBoardState = this.copyBoardState(this.state.squares);
         const newColor = this.getNextPlayer(this.state.currentPlayer);
-        const neighbors = this.getAllNeighborsWithColor(newBoardState, key, newColor);
-        const squaresToBeCaptured = this.getAllCapturedDisks(newBoardState, key, neighbors);
+        const squaresToBeCaptured = this.getAllCapturedDisksWithColor(newBoardState, key, newColor);
 
         if (!squaresToBeCaptured.length) {
             return;
@@ -136,11 +151,9 @@ class Board extends Component {
     };
 
     hideCapturedDisks = () => {
-        const newBoardState = {...this.state.squares};
+        const newBoardState = this.copyBoardState(this.state.squares);
         Object.values(newBoardState).forEach((square) => {
-            const newSquare = {...square};
-            newSquare.mayBeCaptured = false;
-            newBoardState[square.key] = newSquare;
+            square.mayBeCaptured = false;
         });
 
         this.setState({
@@ -153,11 +166,10 @@ class Board extends Component {
             return;
         }
 
-        const newColor = this.getNextPlayer(this.state.currentPlayer);
-        const neighbors = this.getAllNeighborsWithColor(this.state.squares, key, newColor);
-        const capturedDisks = this.getAllCapturedDisks(this.state.squares, key, neighbors);
+        let nextPlayer = this.getNextPlayer(this.state.currentPlayer);
+        const capturedDisks = this.getAllCapturedDisksWithColor(this.state.squares, key, nextPlayer);
 
-        // Add new disk
+        // add new disk
         const newBoardState = {...this.state.squares};
         newBoardState[key] = {
             key: key,
@@ -165,21 +177,30 @@ class Board extends Component {
             color: this.state.currentPlayer
         };
 
-        // Change color of captured disks
+        // change color of captured disks
         capturedDisks.forEach((disk) => {
             newBoardState[disk.key].color = this.state.currentPlayer;
             newBoardState[disk.key].mayBeCaptured = false;
         });
 
         // update allowable squares for the next player
-        const validMoves = this.getAllValidMoves(newBoardState);
+        let validMoves = this.getAllValidMoves(newBoardState, nextPlayer);
 
-        this.setState((prevState) => {
-            return {
-                currentPlayer: this.getNextPlayer(prevState.currentPlayer),
-                squares: newBoardState,
-                validMoves: validMoves
+        if (!validMoves.length) {
+            // a player changes only if he has valid moves
+            nextPlayer = this.getNextPlayer(nextPlayer);
+            validMoves = this.getAllValidMoves(newBoardState, nextPlayer);
+
+            if (!validMoves.length) {
+                // if both players cannot move - the game is over
+                nextPlayer = null;
             }
+        }
+
+        this.setState({
+            currentPlayer: nextPlayer,
+            squares: newBoardState,
+            validMoves: validMoves
         });
     };
 
