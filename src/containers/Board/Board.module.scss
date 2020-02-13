@@ -3,8 +3,8 @@ $board_size: 8;
 .board {
 	box-sizing: border-box;
 	position: relative;
-	width: 564px;
-	height: 564px;
+	width: 524px;
+	height: 524px;
 	margin: auto;
 	background-color: #255627;
 	background-image: radial-gradient(#255627 50%, #264119);
@@ -28,6 +28,21 @@ $board_size: 8;
 		border-radius: 10px;
 		box-shadow: 0 2px 3px 0 #000;
 		z-index: -1;
+	}
+}
+
+.totalScore {
+	position: absolute;
+	margin: auto;
+	left: 0;
+	right: 0;
+	width: 150px;
+	text-align: center;
+	font-size: 48px;
+	font-weight: bold;
+	
+	.black {
+		float: left;
 	}
 }
 

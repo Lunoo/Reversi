@@ -1,11 +1,13 @@
 import React from 'react';
 
 import './App.scss';
-import Board from "./containers/Board/Board";
+import Header from './containers/Header/Header';
+import Board from './containers/Board/Board';
 
 function App() {
     return (
         <div className="app">
+            <Header/>
             <Board/>
         </div>
     );

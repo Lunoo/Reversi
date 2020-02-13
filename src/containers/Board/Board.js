@@ -34,9 +34,26 @@ class Board extends Component {
                 mayBeCaptured: false
             }
         },
+        totalScore: {
+            black: 2,
+            white: 2
+        },
         validMoves: [
             32, 23, 54, 45
         ]
+    };
+
+    changeTotalScore = (boardState) => {
+        const boardStateArray = Object.values(boardState);
+        const totalDisks = boardStateArray.length;
+        let blackScore = boardStateArray.reduce((sum, square) => {
+            return square.color === 'black' ? sum + 1 : sum;
+        }, 0);
+
+        return {
+            black: blackScore,
+            white: totalDisks - blackScore
+        };
     };
 
     copyBoardState = (state) => {
@@ -167,10 +184,10 @@ class Board extends Component {
         }
 
         let nextPlayer = this.getNextPlayer(this.state.currentPlayer);
-        const capturedDisks = this.getAllCapturedDisksWithColor(this.state.squares, key, nextPlayer);
+        const newBoardState = this.copyBoardState(this.state.squares);
+        const capturedDisks = this.getAllCapturedDisksWithColor(newBoardState, key, nextPlayer);
 
         // add new disk
-        const newBoardState = {...this.state.squares};
         newBoardState[key] = {
             key: key,
             isNotEmpty: true,
@@ -197,9 +214,12 @@ class Board extends Component {
             }
         }
 
+        const newTotalScore = this.changeTotalScore(newBoardState);
+
         this.setState({
             currentPlayer: nextPlayer,
             squares: newBoardState,
+            totalScore: newTotalScore,
             validMoves: validMoves
         });
     };
@@ -227,10 +247,20 @@ class Board extends Component {
         }
 
         return (
-            <div className={styles.board}
-                 data-player={this.state.currentPlayer}>
-                {squares}
-            </div>
+            <>
+                {/*<div className={styles.totalScore}>*/}
+                    {/*<div className={styles.black}>*/}
+                    {/*    <Square isNotEmpty*/}
+                    {/*            color={'black'}/>*/}
+                    {/*    {this.state.totalScore.black}*/}
+                    {/*</div>*/}
+                    {/*{this.state.totalScore.black + ' : ' + this.state.totalScore.white}*/}
+                {/*</div>*/}
+                <div className={styles.board}
+                     data-player={this.state.currentPlayer}>
+                    {squares}
+                </div>
+            </>
         );
     }
 }
