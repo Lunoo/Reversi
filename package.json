@@ -1,4 +1,5 @@
 {
+  "homepage": "https://lunoo.github.io/Reversi/",
   "name": "reverse",
   "version": "0.1.0",
   "private": true,
@@ -65,7 +66,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "install": "npm install",
-    "build": "node scripts/build.js",
+    "predeploy": "node scripts/build.js",
+    "deploy": "gh-pages -d build",
     "test": "node scripts/test.js"
   },
   "eslintConfig": {
@@ -137,5 +139,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
   }
 }

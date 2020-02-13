@@ -4,7 +4,7 @@ Reversi is game for 2 players build with a React. You can play either with anoth
 
 ## Live Demo
 
-https://lunoo.github.io/Reversi
+https://lunoo.github.io/Reversi/
 
 ## Install
 
