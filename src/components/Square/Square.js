@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Square.module.scss';
 import Disk from '../Disk/Disk';
 
-function Square(props) {
+const square = (props) => {
     const classes = [styles.square];
     if (props.isMarked) {
         classes.push(styles.withMark);
@@ -25,6 +25,6 @@ function Square(props) {
             {props.isNotEmpty && <Disk color={props.color}/>}
         </div>
     );
-}
+};
 
-export default Square;
+export default square;

@@ -4,7 +4,7 @@ import styles from './Disk.module.scss';
 
 const FACETS = 32;
 
-function Disk(props) {
+const disk = (props) => {
     const classes = [styles.wrapper, styles[props.color]];
 
     return (
@@ -20,6 +20,6 @@ function Disk(props) {
             </div>
         </div>
     );
-}
+};
 
-export default Disk;
+export default disk;
