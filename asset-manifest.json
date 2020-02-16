@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/Reversi/static/css/main.22673c63.chunk.css",
-    "main.js": "/Reversi/static/js/main.9093ae6e.chunk.js",
-    "main.js.map": "/Reversi/static/js/main.9093ae6e.chunk.js.map",
+    "main.css": "/Reversi/static/css/main.6cdf1422.chunk.css",
+    "main.js": "/Reversi/static/js/main.510be38f.chunk.js",
+    "main.js.map": "/Reversi/static/js/main.510be38f.chunk.js.map",
     "runtime-main.js": "/Reversi/static/js/runtime-main.72b3cd6b.js",
     "runtime-main.js.map": "/Reversi/static/js/runtime-main.72b3cd6b.js.map",
-    "static/js/2.e78f1ef1.chunk.js": "/Reversi/static/js/2.e78f1ef1.chunk.js",
-    "static/js/2.e78f1ef1.chunk.js.map": "/Reversi/static/js/2.e78f1ef1.chunk.js.map",
+    "static/js/2.4692cf02.chunk.js": "/Reversi/static/js/2.4692cf02.chunk.js",
+    "static/js/2.4692cf02.chunk.js.map": "/Reversi/static/js/2.4692cf02.chunk.js.map",
     "index.html": "/Reversi/index.html",
-    "precache-manifest.a0cca762a2711bdd46a5bac04a58f1b7.js": "/Reversi/precache-manifest.a0cca762a2711bdd46a5bac04a58f1b7.js",
+    "precache-manifest.d2c6481fb6e48acac33626443464cf73.js": "/Reversi/precache-manifest.d2c6481fb6e48acac33626443464cf73.js",
     "service-worker.js": "/Reversi/service-worker.js",
-    "static/css/main.22673c63.chunk.css.map": "/Reversi/static/css/main.22673c63.chunk.css.map",
-    "static/js/2.e78f1ef1.chunk.js.LICENSE.txt": "/Reversi/static/js/2.e78f1ef1.chunk.js.LICENSE.txt",
+    "static/css/main.6cdf1422.chunk.css.map": "/Reversi/static/css/main.6cdf1422.chunk.css.map",
+    "static/js/2.4692cf02.chunk.js.LICENSE.txt": "/Reversi/static/js/2.4692cf02.chunk.js.LICENSE.txt",
     "static/media/Board.module.scss": "/Reversi/static/media/wood-bg.ac610868.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.72b3cd6b.js",
-    "static/js/2.e78f1ef1.chunk.js",
-    "static/css/main.22673c63.chunk.css",
-    "static/js/main.9093ae6e.chunk.js"
+    "static/js/2.4692cf02.chunk.js",
+    "static/css/main.6cdf1422.chunk.css",
+    "static/js/main.510be38f.chunk.js"
   ]
 }
