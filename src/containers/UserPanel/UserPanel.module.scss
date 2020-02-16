@@ -1,0 +1,50 @@
+.userPanel {
+	display: flex;
+	height: 80px;
+	margin: 10px 0;
+	
+	> div {
+		flex: 1 0 auto;
+	}
+}
+
+.playerBlock {
+	&.black {
+	
+	}
+	
+	&.black {
+	
+	}
+}
+
+.totalScoreBlock {
+	display: flex;
+}
+
+.totalScore {
+	border: 3px solid #3b1b06;
+	border-radius: 5px;
+	background-color: #824a28;
+	height: 50px;
+	width: 160px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+}
+
+.squareBlock {
+	display: flex;
+	align-items: center;
+	width: 50%;
+	height: 100%;
+	justify-content: center;
+	color: #fff;
+	
+	> div {
+		height: 40px;
+		width: 40px;
+		border: none;
+		margin-right: 4px;
+	}
+}

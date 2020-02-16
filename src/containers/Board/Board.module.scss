@@ -1,7 +1,11 @@
 $board_size: 8;
 
+.boardContainer {
+	display: flex;
+	flex-grow: 1;
+}
+
 .board {
-	box-sizing: border-box;
 	position: relative;
 	width: 524px;
 	height: 524px;
@@ -64,7 +68,15 @@ $board_size: 8;
 	.board {
 		width: 324px;
 		height: 324px;
-		min-width: 324px;
-		min-height: 324px;
+		
+		&:before {
+			margin: -10px;
+		}
+	}
+}
+
+@media (max-width: 360px), (max-height: 360px) {
+	.board:before {
+		margin: -5px;
 	}
 }

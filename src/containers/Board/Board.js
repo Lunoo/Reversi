@@ -34,10 +34,6 @@ class Board extends Component {
                 mayBeCaptured: false
             }
         },
-        totalScore: {
-            black: 2,
-            white: 2
-        },
         validMoves: [
             32, 23, 54, 45
         ]
@@ -214,12 +210,13 @@ class Board extends Component {
             }
         }
 
+        // provide totalScore to UserPanel
         const newTotalScore = this.changeTotalScore(newBoardState);
+        this.props.setTotalScore(newTotalScore);
 
         this.setState({
             currentPlayer: nextPlayer,
             squares: newBoardState,
-            totalScore: newTotalScore,
             validMoves: validMoves
         });
     };
@@ -247,20 +244,12 @@ class Board extends Component {
         }
 
         return (
-            <>
-                {/*<div className={styles.totalScore}>*/}
-                    {/*<div className={styles.black}>*/}
-                    {/*    <Square isNotEmpty*/}
-                    {/*            color={'black'}/>*/}
-                    {/*    {this.state.totalScore.black}*/}
-                    {/*</div>*/}
-                    {/*{this.state.totalScore.black + ' : ' + this.state.totalScore.white}*/}
-                {/*</div>*/}
+            <div className={styles.boardContainer}>
                 <div className={styles.board}
                      data-player={this.state.currentPlayer}>
                     {squares}
                 </div>
-            </>
+            </div>
         );
     }
 }
