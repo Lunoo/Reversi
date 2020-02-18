@@ -5,10 +5,21 @@ import Header from './containers/Header/Header';
 import Board from './containers/Board/Board';
 import UserPanel from './containers/UserPanel/UserPanel';
 
-const BG_CLASSES = ['blue', 'green'];
+const BG_CLASSES = ['green']; // ['blue', 'green']
 
 class App extends Component {
     state = {
+        currentPlayerIndex: 0,
+        players: [
+            {
+                color: 'black',
+                isHuman: true
+            },
+            {
+                color: 'white',
+                isHuman: true
+            }
+        ],
         totalScore: {
             black: 2,
             white: 2
@@ -16,9 +27,8 @@ class App extends Component {
     };
 
     getRandomItemFromArray = (arr) => {
-        // const index = Math.floor(Math.random() * arr.length);
-        // return arr[index];
-        return 'green';
+        const index = Math.floor(Math.random() * arr.length);
+        return arr[index];
     };
 
     setTotalScore = (newTotalScore) => {

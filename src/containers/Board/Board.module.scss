@@ -50,21 +50,21 @@ $board_size: 8;
 	}
 }
 
-@media (max-width: 660px), (max-height: 660px) {
+@media (max-width: 660px) {
 	.board {
 		width: 500px;
 		height: 500px;
 	}
 }
 
-@media (max-width: 560px), (max-height: 560px) {
+@media (max-width: 560px) {
 	.board {
 		width: 404px;
 		height: 404px;
 	}
 }
 
-@media (max-width: 460px), (max-height: 460px) {
+@media (max-width: 460px) {
 	.board {
 		width: 324px;
 		height: 324px;
@@ -72,11 +72,5 @@ $board_size: 8;
 		&:before {
 			margin: -10px;
 		}
-	}
-}
-
-@media (max-width: 360px), (max-height: 360px) {
-	.board:before {
-		margin: -5px;
 	}
 }

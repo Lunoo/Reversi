@@ -5,18 +5,16 @@
 	padding: 0 30px;
 }
 
-@media (max-width: 460px), (max-height: 460px) {
+@media (max-width: 460px) {
 	.app {
-		min-height: 370px;
-		min-width: 370px;
 		padding: 0 20px;
 	}
 }
 
-@media (max-width: 370px), (max-height: 370px) {
+@media (max-width: 370px) {
 	.app {
-		min-height: 344px;
-		min-width: 344px;
-		padding: 0 10px;
+		min-height: 350px;
+		min-width: 350px;
+		padding: 0 13px;
 	}
 }

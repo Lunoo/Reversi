@@ -7,7 +7,9 @@ class UserPanel extends Component {
     render() {
         return (
             <div className={styles.userPanel}>
-                <div className={styles.playerBlock}></div>
+                <div className={[styles.playerBlock, styles.black].join(' ')}>
+                    <img src={require('../../assets/images/dark.jpg')}  alt="dark"/>
+                </div>
 
                 <div className={styles.totalScoreBlock}>
                     <div className={styles.totalScore}>
@@ -23,7 +25,9 @@ class UserPanel extends Component {
                     </div>
                 </div>
 
-                <div className={styles.playerBlock}></div>
+                <div className={[styles.playerBlock, styles.white].join(' ')}>
+                    <img src={require('../../assets/images/light.jpg')} alt="light"/>
+                </div>
             </div>
         );
     }

@@ -7,11 +7,11 @@
 	text-align: center;
 	text-shadow: 0 0 3px #fcfcfc;
 	
-	@media (max-width: 560px), (max-height: 560px) {
+	@media (max-width: 560px) {
 		font-size: 36px;
 	}
 	
-	@media (max-width: 460px), (max-height: 460px) {
+	@media (max-width: 460px) {
 		margin: 5px 0;
 		font-size: 30px;
 	}
