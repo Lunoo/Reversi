@@ -1,17 +1,21 @@
-$border_color: green;
+$border_color: rgba(0, 128, 0, .5);
 
 .userPanel {
 	display: flex;
 	height: 80px;
 	margin: 10px -30px 0;
-	
-	> div {
-		flex: 1 0 auto;
-	}
+	transition: height .3s ease;
 }
 
 .playerBlock {
+	flex-grow: 1;
+	margin: 0;
+	max-width: 220px;
 	padding: 10px 20px;
+	border-top: 1px solid $border_color;
+	box-shadow: inset 0 0 1px 0 green;
+	color: #dbdbdb;
+	transition: box-shadow .3s ease;
 	
 	img {
 		height: 100%;
@@ -19,66 +23,76 @@ $border_color: green;
 		border-radius: 10px;
 	}
 	
+	figcaption {
+		max-width: 110px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	
 	&.black {
-		border-top: 1px solid $border_color;
+		background: radial-gradient(ellipse 90% 140% at right bottom, #147619 -20%, #143a16 60%);
 		border-top-right-radius: 10px;
-		background: radial-gradient(ellipse 90% 140% at right bottom, #147619 10%, #143a16 74%);
+		
+		img {
+			float: left;
+			margin-right: 15px;
+		}
 	}
 	
 	&.white {
-		border-top: 1px solid $border_color;
+		background: radial-gradient(ellipse 90% 140% at left bottom, #147619 -20%, #143a16 60%);
 		border-top-left-radius: 10px;
-		background: radial-gradient(ellipse 90% 140% at left bottom, #147619 10%, #143a16 74%);
 		
 		img {
 			float: right;
+			margin-left: 15px;
+		}
+		
+		figcaption {
+			text-align: right;
+		}
+	}
+	
+	&.active {
+		box-shadow: inset 0 0 5px 2px green;
+		
+		&.black {
+			background: radial-gradient(ellipse 90% 140% at right bottom, #147619 10%, #143a16 74%);
+		}
+		
+		&.white {
+			background: radial-gradient(ellipse 90% 140% at left bottom, #147619 10%, #143a16 74%);
 		}
 	}
 }
 
 .totalScoreBlock {
-	display: flex;
 	position: relative;
+	display: flex;
+	flex-grow: 2;
 	border-radius: 0 0 10px 10px;
-	//border-bottom: 2px solid $border_color;
 	//background: radial-gradient(ellipse 80% 100% at bottom, #105e14 60%, #19421b 105%);
-	
-	&:before, &:after {
-		position: absolute;
-		//content: '';
-		top: 6px;
-		bottom: 6px;
-		width: 2px;
-		background-color: $border_color;
-	}
-	
-	&:before {
-		left: -2px;
-	}
-	
-	&:after {
-		right: -2px;
-	}
 }
 
 .totalScore {
-	border: 3px solid #3b1b06;
-	border-radius: 5px;
-	background-color: #824a28;
+	display: flex;
+	align-items: center;
 	height: 54px;
 	width: 160px;
 	margin: auto;
-	display: flex;
-	align-items: center;
+	background-color: #824a28;
+	border: 3px solid #3b1b06;
+	border-radius: 5px;
 	transition: all ease .3s;
 }
 
 .squareBlock {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	width: 50%;
 	height: 100%;
-	justify-content: center;
 	color: #fff;
 	
 	> div {
@@ -90,9 +104,21 @@ $border_color: green;
 	}
 }
 
-@media (max-width: 560px) {
+@media (max-width: 660px) {
 	.userPanel {
 		height: 70px;
+		font-size: 18px;
+	}
+	
+	.playerBlock {
+		max-width: 180px;
+	}
+}
+
+@media (max-width: 560px) {
+	.userPanel {
+		height: 60px;
+		font-size: 16px;
 	}
 	
 	.totalScore {
@@ -109,7 +135,7 @@ $border_color: green;
 
 @media (max-width: 460px) {
 	.userPanel {
-		height: 60px;
+		height: 50px;
 		margin: 10px -20px 0;
 	}
 	

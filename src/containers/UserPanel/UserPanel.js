@@ -7,9 +7,10 @@ class UserPanel extends Component {
     render() {
         return (
             <div className={styles.userPanel}>
-                <div className={[styles.playerBlock, styles.black].join(' ')}>
-                    <img src={require('../../assets/images/dark.jpg')}  alt="dark"/>
-                </div>
+                <figure className={[styles.playerBlock, styles.black].join(' ')}>
+                    <img src={require('../../assets/images/black-icon.jpg')}  alt="black"/>
+                    <figcaption>Player 1</figcaption>
+                </figure>
 
                 <div className={styles.totalScoreBlock}>
                     <div className={styles.totalScore}>
@@ -25,9 +26,10 @@ class UserPanel extends Component {
                     </div>
                 </div>
 
-                <div className={[styles.playerBlock, styles.white].join(' ')}>
-                    <img src={require('../../assets/images/light.jpg')} alt="light"/>
-                </div>
+                <figure className={[styles.playerBlock, styles.white, styles.active].join(' ')}>
+                    <img src={require('../../assets/images/white-icon.jpg')} alt="white"/>
+                    <figcaption>Player 2</figcaption>
+                </figure>
             </div>
         );
     }

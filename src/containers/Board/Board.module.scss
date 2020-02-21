@@ -3,10 +3,13 @@ $board_size: 8;
 .boardContainer {
 	display: flex;
 	flex-grow: 1;
+	margin: 15px 0;
 }
 
 .board {
 	position: relative;
+	display: grid;
+	grid-template: repeat($board_size, 1fr) / repeat($board_size, 1fr);
 	width: 524px;
 	height: 524px;
 	margin: auto;
@@ -14,8 +17,6 @@ $board_size: 8;
 	background-image: radial-gradient(#255627 50%, #264119);
 	border: 2px solid #000;
 	border-radius: 5px;
-	display: grid;
-	grid-template: repeat($board_size, 1fr) / repeat($board_size, 1fr);
 	transition: all .5s ease;
 	
 	&:before {
@@ -41,9 +42,9 @@ $board_size: 8;
 	left: 0;
 	right: 0;
 	width: 150px;
-	text-align: center;
 	font-size: 48px;
 	font-weight: bold;
+	text-align: center;
 	
 	.black {
 		float: left;
@@ -65,6 +66,10 @@ $board_size: 8;
 }
 
 @media (max-width: 460px) {
+	.boardContainer {
+		margin: 10px 0;
+	}
+	
 	.board {
 		width: 324px;
 		height: 324px;

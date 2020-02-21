@@ -9,17 +9,6 @@ const BG_CLASSES = ['green']; // ['blue', 'green']
 
 class App extends Component {
     state = {
-        currentPlayerIndex: 0,
-        players: [
-            {
-                color: 'black',
-                isHuman: true
-            },
-            {
-                color: 'white',
-                isHuman: true
-            }
-        ],
         totalScore: {
             black: 2,
             white: 2
@@ -42,7 +31,8 @@ class App extends Component {
         return (
             <div className="app">
                 <Header/>
-                <Board setTotalScore={this.setTotalScore}/>
+                <Board setTotalScore={this.setTotalScore}
+                       setCurrentPlayer={this.setCurrentPlayer}/>
                 <UserPanel totalScore={this.state.totalScore}/>
             </div>
         );
