@@ -1,23 +1,27 @@
 {
   "files": {
-    "main.css": "/Reversi/static/css/main.aca7f10d.chunk.css",
-    "main.js": "/Reversi/static/js/main.510be38f.chunk.js",
-    "main.js.map": "/Reversi/static/js/main.510be38f.chunk.js.map",
+    "main.css": "/Reversi/static/css/main.1e1d4eb9.chunk.css",
+    "main.js": "/Reversi/static/js/main.b1f3fc81.chunk.js",
+    "main.js.map": "/Reversi/static/js/main.b1f3fc81.chunk.js.map",
     "runtime-main.js": "/Reversi/static/js/runtime-main.72b3cd6b.js",
     "runtime-main.js.map": "/Reversi/static/js/runtime-main.72b3cd6b.js.map",
-    "static/js/2.4692cf02.chunk.js": "/Reversi/static/js/2.4692cf02.chunk.js",
-    "static/js/2.4692cf02.chunk.js.map": "/Reversi/static/js/2.4692cf02.chunk.js.map",
+    "static/js/2.068a0213.chunk.js": "/Reversi/static/js/2.068a0213.chunk.js",
+    "static/js/2.068a0213.chunk.js.map": "/Reversi/static/js/2.068a0213.chunk.js.map",
     "index.html": "/Reversi/index.html",
-    "precache-manifest.78af269971eb55013064ee262fa8ca06.js": "/Reversi/precache-manifest.78af269971eb55013064ee262fa8ca06.js",
+    "precache-manifest.abd45ed354ab1178a3ef6921d53161b3.js": "/Reversi/precache-manifest.abd45ed354ab1178a3ef6921d53161b3.js",
     "service-worker.js": "/Reversi/service-worker.js",
-    "static/css/main.aca7f10d.chunk.css.map": "/Reversi/static/css/main.aca7f10d.chunk.css.map",
-    "static/js/2.4692cf02.chunk.js.LICENSE.txt": "/Reversi/static/js/2.4692cf02.chunk.js.LICENSE.txt",
-    "static/media/Board.module.scss": "/Reversi/static/media/wood-bg.ac610868.jpg"
+    "static/css/main.1e1d4eb9.chunk.css.map": "/Reversi/static/css/main.1e1d4eb9.chunk.css.map",
+    "static/js/2.068a0213.chunk.js.LICENSE.txt": "/Reversi/static/js/2.068a0213.chunk.js.LICENSE.txt",
+    "static/media/black-icon.jpg": "/Reversi/static/media/black-icon.ba59a848.jpg",
+    "static/media/robot-black-icon.png.png": "/Reversi/static/media/robot-black-icon.png.15e05fad.png",
+    "static/media/robot-white-icon.png": "/Reversi/static/media/robot-white-icon.26ab1b8c.png",
+    "static/media/white-icon.jpg": "/Reversi/static/media/white-icon.ba010b87.jpg",
+    "static/media/wood-bg.jpg": "/Reversi/static/media/wood-bg.ac610868.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.72b3cd6b.js",
-    "static/js/2.4692cf02.chunk.js",
-    "static/css/main.aca7f10d.chunk.css",
-    "static/js/main.510be38f.chunk.js"
+    "static/js/2.068a0213.chunk.js",
+    "static/css/main.1e1d4eb9.chunk.css",
+    "static/js/main.b1f3fc81.chunk.js"
   ]
 }
