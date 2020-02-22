@@ -1,38 +1,39 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import styles from './UserPanel.module.scss';
-import Square from '../../components/Square/Square'
+import Square from '../../components/Square/Square';
+import {useStore} from '../../store/store';
 
-class UserPanel extends Component {
-    render() {
-        return (
-            <div className={styles.userPanel}>
-                <figure className={[styles.playerBlock, styles.black].join(' ')}>
-                    <img src={require('../../assets/images/black-icon.jpg')}  alt="black"/>
-                    <figcaption>Player 1</figcaption>
-                </figure>
+const UserPanel = props => {
+    const {players, currentPlayer} = useStore()[0];
 
-                <div className={styles.totalScoreBlock}>
-                    <div className={styles.totalScore}>
-                        <div className={styles.squareBlock}>
-                            <Square isNotEmpty color={'black'}/>
-                            {this.props.totalScore.black}
-                        </div>
+    return (
+        <div className={styles.userPanel}>
+            <figure className={[styles.playerBlock, styles.black, currentPlayer === 'black' ? styles.active : ''].join(' ')}>
+                <img src={require(`../../assets/images/${players.black.icon}`)} alt="black"/>
+                <figcaption>{players.black.nickname}</figcaption>
+            </figure>
 
-                        <div className={styles.squareBlock}>
-                            <Square isNotEmpty color={'white'}/>
-                            {this.props.totalScore.white}
-                        </div>
+            <div className={styles.totalScoreBlock}>
+                <div className={styles.totalScore}>
+                    <div className={styles.squareBlock}>
+                        <Square isNotEmpty color={'black'}/>
+                        {props.totalScore.black}
+                    </div>
+
+                    <div className={styles.squareBlock}>
+                        <Square isNotEmpty color={'white'}/>
+                        {props.totalScore.white}
                     </div>
                 </div>
-
-                <figure className={[styles.playerBlock, styles.white, styles.active].join(' ')}>
-                    <img src={require('../../assets/images/white-icon.jpg')} alt="white"/>
-                    <figcaption>Player 2</figcaption>
-                </figure>
             </div>
-        );
-    }
-}
+
+            <figure className={[styles.playerBlock, styles.white, currentPlayer === 'white' ? styles.active : ''].join(' ')}>
+                <img src={require(`../../assets/images/${players.white.icon}`)} alt="white"/>
+                <figcaption>{players.white.nickname}</figcaption>
+            </figure>
+        </div>
+    );
+};
 
 export default UserPanel;

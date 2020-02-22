@@ -3,19 +3,17 @@ import React, {useState, useEffect, useCallback} from 'react';
 import styles from './Board.module.scss';
 import Square from '../../components/Square/Square';
 import {
-    copyBoardState,
-    getAllCapturedDisksWithColor,
-    getAllValidMovesForPlayer,
-    getKey,
-    getNextPlayer,
-    isSquareNotEmpty
+    copyBoardState, getAllCapturedDisksWithColor, getAllValidMovesForPlayer, getKey, getNextPlayer
 } from './board-utils';
 import {getNextMove} from './robot-newbie';
+import {useStore} from '../../store/store';
 
 const BOARD_SIZE = 8;
 
 const Board = props => {
-    const [currentPlayer, setCurrentPlayer] = useState('black');
+    const [{currentPlayer, players}, dispatch] = useStore();
+    const isCurrentPlayerHuman = players[currentPlayer]?.isHuman;
+
     const [squares, setSquares] = useState(
         {
             33: {
@@ -60,7 +58,7 @@ const Board = props => {
     };
 
     const showCapturedDisks = (key) => {
-        if (isSquareNotEmpty(key)) {
+        if (!showValidMove(key)) {
             return;
         }
 
@@ -80,6 +78,10 @@ const Board = props => {
     };
 
     const hideCapturedDisks = () => {
+        if (!isCurrentPlayerHuman) {
+            return;
+        }
+
         const newBoardState = copyBoardState(squares);
         Object.values(newBoardState).forEach((square) => {
             square.mayBeCaptured = false;
@@ -88,8 +90,12 @@ const Board = props => {
         setSquares(newBoardState);
     };
 
-    const squareClicked = useCallback((key) => {
-        if (!validMoves.includes(key)) {
+    const showValidMove = (key) => {
+        return isCurrentPlayerHuman && validMoves.includes(key);
+    };
+
+    const squareClicked = useCallback((key, isCurrentPlayerHuman) => {
+        if (!isCurrentPlayerHuman || !validMoves.includes(key)) {
             return;
         }
 
@@ -113,12 +119,12 @@ const Board = props => {
         // update allowable squares for the next player
         let possibleMoves = getAllValidMovesForPlayer(newBoardState, nextPlayer);
 
-        if (!validMoves.length) {
+        if (!possibleMoves.length) {
             // a player changes only if he has valid moves
             nextPlayer = currentPlayer;
             possibleMoves = getAllValidMovesForPlayer(newBoardState, nextPlayer);
 
-            if (!validMoves.length) {
+            if (!possibleMoves.length) {
                 // if both players cannot move - the game is over
                 nextPlayer = null;
             }
@@ -128,21 +134,24 @@ const Board = props => {
         const newTotalScore = changeTotalScore(newBoardState);
         props.setTotalScore(newTotalScore);
 
-        setCurrentPlayer(nextPlayer);
+        dispatch('PLAYER_CHANGED', nextPlayer);
         setSquares(newBoardState);
         setValidMoves(possibleMoves);
-    }, [currentPlayer, props, validMoves, squares]);
+    }, [currentPlayer, props, validMoves, squares, dispatch]);
 
     useEffect(() => {
         let timeout;
-        if (currentPlayer === 'white') {
+        if (isCurrentPlayerHuman === false) {
             const nextPlayer = getNextPlayer(currentPlayer);
             const newBoardState = copyBoardState(squares);
 
             const nextMove = getNextMove(validMoves, newBoardState, nextPlayer);
+            if (typeof nextMove !== 'number') {
+                return;
+            }
 
             timeout = setTimeout(() => {
-                squareClicked(nextMove);
+                squareClicked(nextMove, true);
             }, 1000);
         }
 
@@ -151,7 +160,7 @@ const Board = props => {
                 clearTimeout(timeout);
             }
         }
-    }, [currentPlayer, squares, validMoves, squareClicked]);
+    }, [currentPlayer, isCurrentPlayerHuman, squares, validMoves, squareClicked]);
 
     const squaresArr = [];
     for (let y = 0; y < BOARD_SIZE; y++) {
@@ -162,13 +171,13 @@ const Board = props => {
             squaresArr.push(
                 <Square isMarked={[2, 6].includes(x) && [2, 6].includes(y)}
                         key={key}
-                        isValidMove={validMoves?.includes(key) ? currentPlayer : null}
+                        isValidMove={showValidMove(key) ? currentPlayer : null}
                         isNotEmpty={squareState?.isNotEmpty}
                         mayBeCaptured={squareState?.mayBeCaptured}
                         color={squareState?.color}
                         hover={() => showCapturedDisks(key)}
-                        blur={() => hideCapturedDisks(key)}
-                        clicked={() => squareClicked(key)}
+                        blur={hideCapturedDisks}
+                        clicked={() => squareClicked(key, isCurrentPlayerHuman)}
                 />
             )
         }

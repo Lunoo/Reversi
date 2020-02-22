@@ -31,8 +31,7 @@ class App extends Component {
         return (
             <div className="app">
                 <Header/>
-                <Board setTotalScore={this.setTotalScore}
-                       setCurrentPlayer={this.setCurrentPlayer}/>
+                <Board setTotalScore={this.setTotalScore}/>
                 <UserPanel totalScore={this.state.totalScore}/>
             </div>
         );

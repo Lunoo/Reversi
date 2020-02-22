@@ -2,23 +2,27 @@ import {initStore} from './store';
 
 const configureStore = () => {
     const actions = {
-        'PLAYER_CHANGED': (curState, playerIndex) => {
-            return {currentPlayerIndex: playerIndex}
+        'PLAYER_CHANGED': (curState, player) => {
+            return {currentPlayer: player}
         }
     };
 
     initStore(actions, {
-        currentPlayerIndex: 0,
-        players: [
-            {
+        currentPlayer: 'black',
+        players: {
+            black: {
                 color: 'black',
-                isHuman: true
+                icon: 'black-icon.jpg',
+                isHuman: true,
+                nickname: 'Human'
             },
-            {
+            white: {
                 color: 'white',
-                isHuman: true
+                icon: 'robot-white-icon.png',
+                isHuman: false,
+                nickname: 'Robot'
             }
-        ]
+        }
     })
 };
 

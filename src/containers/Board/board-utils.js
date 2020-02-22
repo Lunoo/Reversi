@@ -19,7 +19,7 @@ export const getAllValidMovesForPlayer = (boardState, nextPlayerColor) => {
         for (let x = 0; x < BOARD_SIZE; x++) {
             const key = getKey(x, y);
 
-            if (isSquareNotEmpty(key)) {
+            if (isSquareNotEmpty(boardState, key)) {
                 // skip the already taken squares
                 continue;
             }
