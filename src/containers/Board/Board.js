@@ -35,13 +35,14 @@ const INITIAL_BOARD_STATE = {
         mayBeCaptured: false
     }
 };
+const INITIAL_VALID_MOVES = [32, 23, 54, 45];
 
-const Board = props => {
+const Board = () => {
     const [{currentPlayer, players}, dispatch] = useStore();
     const isCurrentPlayerHuman = players[currentPlayer]?.isHuman;
 
     const [boardState, setBoardState] = useState(INITIAL_BOARD_STATE);
-    const [validMoves, setValidMoves] = useState([32, 23, 54, 45]);
+    const [validMoves, setValidMoves] = useState(INITIAL_VALID_MOVES);
 
     const changeTotalScore = (boardState) => {
         const boardStateArray = Object.values(boardState);
@@ -138,12 +139,14 @@ const Board = props => {
 
         // provide totalScore to UserPanel
         const newTotalScore = changeTotalScore(newBoardState);
-        props.setTotalScore(newTotalScore);
+        dispatch('TOTAL_SCORE_CHANGED', newTotalScore);
 
+        // provide currentPlayer to UserPanel
         dispatch('PLAYER_CHANGED', nextPlayer);
+
         setBoardState(newBoardState);
         setValidMoves(possibleMoves);
-    }, [currentPlayer, props, validMoves, boardState, dispatch]);
+    }, [currentPlayer, validMoves, boardState, dispatch]);
 
     useEffect(() => {
         let timeout;
@@ -167,6 +170,12 @@ const Board = props => {
             }
         }
     }, [currentPlayer, isCurrentPlayerHuman, boardState, validMoves, squareClicked]);
+
+    useEffect(() => {
+        // start game fro the beginning
+        setBoardState(INITIAL_BOARD_STATE);
+        setValidMoves(INITIAL_VALID_MOVES);
+    }, [players]);
 
     const newBoardState = [];
     for (let y = 0; y < BOARD_SIZE; y++) {

@@ -4,8 +4,8 @@ import styles from './UserPanel.module.scss';
 import Square from '../../components/Square/Square';
 import {useStore} from '../../store/store';
 
-const UserPanel = props => {
-    const {players, currentPlayer} = useStore()[0];
+const UserPanel = () => {
+    const {players, currentPlayer, totalScore} = useStore()[0];
 
     return (
         <div className={styles.userPanel}>
@@ -18,12 +18,12 @@ const UserPanel = props => {
                 <div className={styles.totalScore}>
                     <div className={styles.squareBlock}>
                         <Square isNotEmpty color={'black'}/>
-                        {props.totalScore.black}
+                        {totalScore.black}
                     </div>
 
                     <div className={styles.squareBlock}>
                         <Square isNotEmpty color={'white'}/>
-                        {props.totalScore.white}
+                        {totalScore.white}
                     </div>
                 </div>
             </div>

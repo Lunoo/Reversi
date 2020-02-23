@@ -8,22 +8,9 @@ import UserPanel from './containers/UserPanel/UserPanel';
 const BG_CLASSES = ['green']; // ['blue', 'green']
 
 class App extends Component {
-    state = {
-        totalScore: {
-            black: 2,
-            white: 2
-        }
-    };
-
     getRandomItemFromArray = (arr) => {
         const index = Math.floor(Math.random() * arr.length);
         return arr[index];
-    };
-
-    setTotalScore = (newTotalScore) => {
-        this.setState({
-            totalScore: newTotalScore
-        });
     };
 
     render() {
@@ -31,8 +18,8 @@ class App extends Component {
         return (
             <div className="app">
                 <Header/>
-                <Board setTotalScore={this.setTotalScore}/>
-                <UserPanel totalScore={this.state.totalScore}/>
+                <Board/>
+                <UserPanel/>
             </div>
         );
     }
