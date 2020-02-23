@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Square.module.scss';
 import Disk from '../Disk/Disk';
 
-const square = (props) => {
+const Square = props => {
     const classes = [styles.square];
     if (props.isMarked) {
         classes.push(styles.withMark);
@@ -27,4 +27,4 @@ const square = (props) => {
     );
 };
 
-export default square;
+export default Square;

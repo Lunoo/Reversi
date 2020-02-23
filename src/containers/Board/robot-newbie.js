@@ -19,7 +19,7 @@ export const getNextMove = (possibleMoves, boardState, playerColor) => {
     // get all moves with max number of captured disks
     moves = moves.filter(move => move.captured === maxCapturedValue);
 
-    if (moves.length) {
+    if (moves.length > 0) {
         // choose random move the current array
         const randomMoveIndex = Math.floor(Math.random() * moves.length);
         return moves[randomMoveIndex].key;

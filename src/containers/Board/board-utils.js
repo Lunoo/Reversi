@@ -13,8 +13,8 @@ export const isSquareNotEmpty = (boardState, key) => {
     return !!boardState[key]?.isNotEmpty;
 };
 
-export const getAllValidMovesForPlayer = (boardState, nextPlayerColor) => {
-    const possibleMoves = [];
+export const getAllValidMovesForPlayer = (boardState, playerColor) => {
+    const validMoves = [];
     for (let y = 0; y < BOARD_SIZE; y++) {
         for (let x = 0; x < BOARD_SIZE; x++) {
             const key = getKey(x, y);
@@ -24,17 +24,17 @@ export const getAllValidMovesForPlayer = (boardState, nextPlayerColor) => {
                 continue;
             }
 
-            // next player will capture disks with a color equal to currentPlayerColor
-            const currentPlayerColor = getNextPlayer(nextPlayerColor);
-            const capturedDisks = getAllCapturedDisksWithColor(boardState, key, currentPlayerColor);
-            // check if the player has valid moves
+            // player will capture disks with a opposite color
+            const oppositeColor = getNextPlayer(playerColor);
+            const capturedDisks = getAllCapturedDisksWithColor(boardState, key, oppositeColor);
+            // check if the player has valid oppositeColor
             if (capturedDisks.length > 0) {
-                possibleMoves.push(key);
+                validMoves.push(key);
             }
         }
     }
 
-    return possibleMoves;
+    return validMoves;
 };
 
 export const getAllCapturedDisksWithColor = (boardState, key, color) => {
@@ -47,14 +47,14 @@ export const getAllCapturedDisksWithColor = (boardState, key, color) => {
         // calculate actual direction
         const vector = square.key - key;
 
-        let squareToCheck = square;
+        let checkedSquare = square;
         // looking for a player color disc or an empty square or the end of the board
-        while (squareToCheck && squareToCheck.color === square.color) {
-            addedDisks.push({...squareToCheck});
-            squareToCheck = boardState[squareToCheck.key + vector];
+        while (checkedSquare && checkedSquare.color === square.color) {
+            addedDisks.push({...checkedSquare});
+            checkedSquare = boardState[checkedSquare.key + vector];
         }
 
-        if (squareToCheck) {
+        if (checkedSquare) {
             // if such a disk is located - add all the passed disks to the array of captured
             capturedDisks = [
                 ...capturedDisks,
@@ -71,9 +71,9 @@ const getAllNeighborsWithColor = (boardState, key, color) => {
     for (let y = -1; y <= 1; y++) {
         for (let x = -1; x <= 1; x++) {
             const vector = getKey(x, y);
-            const square = boardState[key + vector];
-            if (square && square.key !== key && square.color === color) {
-                neighbors.push({...square})
+            const checkedSquare = boardState[key + vector];
+            if (checkedSquare && checkedSquare.key !== key && checkedSquare.color === color) {
+                neighbors.push({...checkedSquare})
             }
         }
     }

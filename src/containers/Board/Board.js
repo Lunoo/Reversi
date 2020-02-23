@@ -9,39 +9,38 @@ import {getNextMove} from './robot-newbie';
 import {useStore} from '../../store/store';
 
 const BOARD_SIZE = 8;
+const INITIAL_BOARD_STATE = {
+    33: {
+        key: 33,
+        isNotEmpty: true,
+        color: 'white',
+        mayBeCaptured: false
+    },
+    44: {
+        key: 44,
+        isNotEmpty: true,
+        color: 'white',
+        mayBeCaptured: false
+    },
+    34: {
+        key: 34,
+        isNotEmpty: true,
+        color: 'black',
+        mayBeCaptured: false
+    },
+    43: {
+        key: 43,
+        isNotEmpty: true,
+        color: 'black',
+        mayBeCaptured: false
+    }
+};
 
 const Board = props => {
     const [{currentPlayer, players}, dispatch] = useStore();
     const isCurrentPlayerHuman = players[currentPlayer]?.isHuman;
 
-    const [squares, setSquares] = useState(
-        {
-            33: {
-                key: 33,
-                isNotEmpty: true,
-                color: 'white',
-                mayBeCaptured: false
-            },
-            44: {
-                key: 44,
-                isNotEmpty: true,
-                color: 'white',
-                mayBeCaptured: false
-            },
-            34: {
-                key: 34,
-                isNotEmpty: true,
-                color: 'black',
-                mayBeCaptured: false
-            },
-            43: {
-                key: 43,
-                isNotEmpty: true,
-                color: 'black',
-                mayBeCaptured: false
-            }
-        }
-    );
+    const [boardState, setBoardState] = useState(INITIAL_BOARD_STATE);
     const [validMoves, setValidMoves] = useState([32, 23, 54, 45]);
 
     const changeTotalScore = (boardState) => {
@@ -57,16 +56,20 @@ const Board = props => {
         };
     };
 
+    const showValidMove = (key) => {
+        return isCurrentPlayerHuman && validMoves.includes(key);
+    };
+
     const showCapturedDisks = (key) => {
         if (!showValidMove(key)) {
             return;
         }
 
-        const newBoardState = copyBoardState(squares);
+        const newBoardState = copyBoardState(boardState);
         const newColor = getNextPlayer(currentPlayer);
         const squaresToBeCaptured = getAllCapturedDisksWithColor(newBoardState, key, newColor);
 
-        if (!squaresToBeCaptured.length) {
+        if (squaresToBeCaptured.length === 0) {
             return;
         }
 
@@ -74,7 +77,7 @@ const Board = props => {
             newBoardState[square.key].mayBeCaptured = true;
         });
 
-        setSquares(newBoardState);
+        setBoardState(newBoardState);
     };
 
     const hideCapturedDisks = () => {
@@ -82,16 +85,19 @@ const Board = props => {
             return;
         }
 
-        const newBoardState = copyBoardState(squares);
-        Object.values(newBoardState).forEach((square) => {
-            square.mayBeCaptured = false;
+        const markedSquares = Object.values(boardState)
+            .filter((square) => square.mayBeCaptured === true);
+
+        if (markedSquares.length === 0) {
+            return;
+        }
+
+        const newBoardState = copyBoardState(boardState);
+        markedSquares.forEach((square) => {
+            newBoardState[square.key].mayBeCaptured = false;
         });
 
-        setSquares(newBoardState);
-    };
-
-    const showValidMove = (key) => {
-        return isCurrentPlayerHuman && validMoves.includes(key);
+        setBoardState(newBoardState);
     };
 
     const squareClicked = useCallback((key, isCurrentPlayerHuman) => {
@@ -100,7 +106,7 @@ const Board = props => {
         }
 
         let nextPlayer = getNextPlayer(currentPlayer);
-        const newBoardState = copyBoardState(squares);
+        const newBoardState = copyBoardState(boardState);
         const capturedDisks = getAllCapturedDisksWithColor(newBoardState, key, nextPlayer);
 
         // add new disk
@@ -119,12 +125,12 @@ const Board = props => {
         // update allowable squares for the next player
         let possibleMoves = getAllValidMovesForPlayer(newBoardState, nextPlayer);
 
-        if (!possibleMoves.length) {
+        if (possibleMoves.length === 0) {
             // a player changes only if he has valid moves
             nextPlayer = currentPlayer;
             possibleMoves = getAllValidMovesForPlayer(newBoardState, nextPlayer);
 
-            if (!possibleMoves.length) {
+            if (possibleMoves.length === 0) {
                 // if both players cannot move - the game is over
                 nextPlayer = null;
             }
@@ -135,15 +141,15 @@ const Board = props => {
         props.setTotalScore(newTotalScore);
 
         dispatch('PLAYER_CHANGED', nextPlayer);
-        setSquares(newBoardState);
+        setBoardState(newBoardState);
         setValidMoves(possibleMoves);
-    }, [currentPlayer, props, validMoves, squares, dispatch]);
+    }, [currentPlayer, props, validMoves, boardState, dispatch]);
 
     useEffect(() => {
         let timeout;
         if (isCurrentPlayerHuman === false) {
             const nextPlayer = getNextPlayer(currentPlayer);
-            const newBoardState = copyBoardState(squares);
+            const newBoardState = copyBoardState(boardState);
 
             const nextMove = getNextMove(validMoves, newBoardState, nextPlayer);
             if (typeof nextMove !== 'number') {
@@ -160,17 +166,17 @@ const Board = props => {
                 clearTimeout(timeout);
             }
         }
-    }, [currentPlayer, isCurrentPlayerHuman, squares, validMoves, squareClicked]);
+    }, [currentPlayer, isCurrentPlayerHuman, boardState, validMoves, squareClicked]);
 
-    const squaresArr = [];
+    const newBoardState = [];
     for (let y = 0; y < BOARD_SIZE; y++) {
         for (let x = 0; x < BOARD_SIZE; x++) {
             const key = getKey(x, y);
-            const squareState = squares[key];
+            const squareState = boardState[key];
 
-            squaresArr.push(
-                <Square isMarked={[2, 6].includes(x) && [2, 6].includes(y)}
-                        key={key}
+            newBoardState.push(
+                <Square key={key}
+                        isMarked={[2, 6].includes(x) && [2, 6].includes(y)}
                         isValidMove={showValidMove(key) ? currentPlayer : null}
                         isNotEmpty={squareState?.isNotEmpty}
                         mayBeCaptured={squareState?.mayBeCaptured}
@@ -187,7 +193,7 @@ const Board = props => {
         <div className={styles.boardContainer}>
             <div className={styles.board}
                  data-player={currentPlayer}>
-                {squaresArr}
+                {newBoardState}
             </div>
         </div>
     );
