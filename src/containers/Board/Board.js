@@ -9,6 +9,7 @@ import {getNextMove} from './robot-newbie';
 import {useStore} from '../../store/store';
 
 const BOARD_SIZE = 8;
+const EMPTY_BOARD_STATE = {};
 const INITIAL_BOARD_STATE = {
     33: {
         key: 33,
@@ -38,7 +39,7 @@ const INITIAL_BOARD_STATE = {
 const INITIAL_VALID_MOVES = [32, 23, 54, 45];
 
 const Board = () => {
-    const [{currentPlayer, players}, dispatch] = useStore();
+    const [{currentPlayer, gameStart, players}, dispatch] = useStore();
     const isCurrentPlayerHuman = players[currentPlayer]?.isHuman;
 
     const [boardState, setBoardState] = useState(INITIAL_BOARD_STATE);
@@ -172,10 +173,14 @@ const Board = () => {
     }, [currentPlayer, isCurrentPlayerHuman, boardState, validMoves, squareClicked]);
 
     useEffect(() => {
-        // start game fro the beginning
-        setBoardState(INITIAL_BOARD_STATE);
-        setValidMoves(INITIAL_VALID_MOVES);
-    }, [players]);
+        if (gameStart) {
+            setBoardState(INITIAL_BOARD_STATE);
+            setValidMoves(INITIAL_VALID_MOVES);
+        } else {
+            setBoardState(EMPTY_BOARD_STATE);
+            setValidMoves([]);
+        }
+    }, [gameStart]);
 
     const newBoardState = [];
     for (let y = 0; y < BOARD_SIZE; y++) {

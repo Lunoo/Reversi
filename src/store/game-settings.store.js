@@ -22,11 +22,7 @@ const configureStore = () => {
     };
 
     initStore(actions, {
-        gameStart: false,
-        totalScore: {
-            black: 2,
-            white: 2
-        }
+        gameStart: false
     })
 };
 
