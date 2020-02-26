@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1cb55a9889aad37dd6e756d6dd367624",
+    "revision": "5736632dadefc70bf2d6d39c57cedb6a",
     "url": "/Reversi/index.html"
   },
   {
-    "revision": "798a68357ea70a2024ae",
-    "url": "/Reversi/static/css/main.de15893b.chunk.css"
+    "revision": "a2892243ed6e5a9911ef",
+    "url": "/Reversi/static/css/main.606864a1.chunk.css"
   },
   {
-    "revision": "9d6610e3b54783757b16",
-    "url": "/Reversi/static/js/2.ce3e8495.chunk.js"
+    "revision": "157da581417f67f8d3ad",
+    "url": "/Reversi/static/js/2.35a2cff9.chunk.js"
   },
   {
     "revision": "3adc01bea76e7956dc3633ee898f6936",
-    "url": "/Reversi/static/js/2.ce3e8495.chunk.js.LICENSE.txt"
+    "url": "/Reversi/static/js/2.35a2cff9.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "798a68357ea70a2024ae",
-    "url": "/Reversi/static/js/main.c03c09a0.chunk.js"
+    "revision": "a2892243ed6e5a9911ef",
+    "url": "/Reversi/static/js/main.be3cee0d.chunk.js"
   },
   {
-    "revision": "860514774bec0c21ebc1",
-    "url": "/Reversi/static/js/runtime-main.347bb75a.js"
+    "revision": "948686e58936916bb787",
+    "url": "/Reversi/static/js/runtime-main.0a758d3a.js"
   },
   {
     "revision": "ba59a848b24d8c8ea2a13143e0677dd5",
