@@ -8,6 +8,14 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	
+	&.green {
+		background: radial-gradient(#255627 10%, #0e1f0e);
+	}
+	
+	&.blue {
+		background: radial-gradient(#19343e, #09161c);
+	}
 }
 
 #root {

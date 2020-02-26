@@ -149,10 +149,6 @@ button.button {
 	background: linear-gradient(to right, #035103, #143a16 15%, #143a16 85%, #035103);
 	
 	@media (max-width: 560px), (max-height: 600px) {
-		margin-bottom: 8px;
-	}
-	
-	@media (max-width: 480px) {
 		margin-bottom: 6px;
 	}
 	

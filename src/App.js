@@ -7,8 +7,9 @@ import UserPanel from './containers/UserPanel/UserPanel';
 
 class App extends Component {
     render() {
+        document.body.classList.add('green');
         return (
-	        <div className={[styles.app, styles.green].join(' ')}>
+	        <div className={styles.app}>
                 <Header/>
                 <Board/>
                 <UserPanel/>
