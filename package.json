@@ -1,6 +1,6 @@
 {
   "homepage": "https://lunoo.github.io/Reversi/",
-  "name": "reverse",
+  "name": "reversi",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

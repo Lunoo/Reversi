@@ -2,19 +2,5 @@
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	padding: 0 30px;
-}
-
-@media (max-width: 460px) {
-	.app {
-		padding: 0 20px;
-	}
-}
-
-@media (max-width: 370px) {
-	.app {
-		min-height: 350px;
-		min-width: 350px;
-		padding: 0 13px;
-	}
+	min-width: 350px;
 }
