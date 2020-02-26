@@ -1,0 +1,14 @@
+.app {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-width: 350px;
+	
+	&.green {
+		background: radial-gradient(#255627 10%, #0e1f0e);
+	}
+	
+	&.blue {
+		background: radial-gradient(#19343e, #09161c);
+	}
+}

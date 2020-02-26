@@ -103,7 +103,7 @@ $border_color: rgba(0, 128, 0, .5);
 	
 	@media (max-width: 400px) {
 		height: 60px;
-		padding: 10px 15px;
+		padding: 10px 6px;
 		
 		&.black img {
 			margin-right: 5px;
@@ -149,7 +149,11 @@ button.button {
 	background: linear-gradient(to right, #035103, #143a16 15%, #143a16 85%, #035103);
 	
 	@media (max-width: 560px), (max-height: 600px) {
-		margin-bottom: 5px;
+		margin-bottom: 8px;
+	}
+	
+	@media (max-width: 480px) {
+		margin-bottom: 6px;
 	}
 	
 	@media (max-width: 400px) {
@@ -194,7 +198,7 @@ button.button {
 	margin: 0 auto;
 	
 	@media (max-height: 760px) {
-		padding: 10px 0;
+		padding: 17px 0 10px;
 	}
 	
 	.button {
@@ -239,7 +243,6 @@ button.button {
 	}
 	
 	@media (max-width: 400px) {
-		width: 90px;
 		height: 30px;
 		font-size: 13px;
 	}
