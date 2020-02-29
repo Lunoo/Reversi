@@ -20,8 +20,7 @@ const Square = props => {
             className={classes.join(' ')}
             onClick={props.clicked}
             onMouseOver={props.hover}
-            onMouseLeave={props.blur}
-        >
+            onMouseLeave={props.blur}>
             {props.isNotEmpty && <Disk color={props.color}/>}
         </div>
     );

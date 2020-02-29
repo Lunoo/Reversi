@@ -2,6 +2,8 @@ $border_color: rgba(0, 128, 0, .5);
 
 .userPanel {
 	display: flex;
+	position: relative;
+	justify-content: space-between;
 	height: 150px;
 	font-size: 18px;
 	overflow: hidden;
@@ -43,8 +45,12 @@ button.button {
 
 .middleBlock {
 	display: flex;
-	position: relative;
+	position: absolute;
+	left: 0;
+	right: 0;
 	margin: 0 auto;
+	height: 100%;
+	width: fit-content;
 }
 
 .totalScoreBlock {
@@ -54,7 +60,6 @@ button.button {
 	border-radius: 10px;
 	box-shadow: inset 0 0 4px 1px green;
 	background: linear-gradient(to right, #035103, #143a16 15%, #143a16 85%, #035103);
-	
 	opacity: 0;
 	transform: translateY(100%);
 	transition: opacity .3s ease-out, transform .3s ease-out;
@@ -107,23 +112,28 @@ button.button {
 
 .actionsBlock {
 	width: 200px;
+	transition: transform .3s ease-out;
 	
 	@media (max-height: 760px) {
 		padding: 17px 0 10px;
 	}
 	
-	&.enterActive {
+	&.enter, &.exit {
 		position: absolute;
 		top: 0;
-		left: 50%;
-		animation: showToTop .3s ease-out forwards;
+		left: calc(50% - 100px);
+	}
+	
+	&.enter {
+		transform: translateY(100%);
+	}
+	
+	&.enterActive, &.enterDone {
+		transform: translateY(0);
 	}
 	
 	&.exitActive {
-		position: absolute;
-		top: 0;
-		left: 50%;
-		animation: hideToBottom .3s ease-out forwards;
+		transform: translateY(100%);
 	}
 	
 	.button {
@@ -214,27 +224,5 @@ button.button {
 		[class^="Disk_back"] {
 			display: none;
 		}
-	}
-}
-
-@keyframes hideToBottom {
-	from {
-		opacity: 1;
-		transform: translate(-50%, 0);
-	}
-	to {
-		opacity: 0;
-		transform: translate(-50%, 100%);
-	}
-}
-
-@keyframes showToTop {
-	from {
-		opacity: 0;
-		transform: translate(-50%, 100%);
-	}
-	to {
-		opacity: 1;
-		transform: translate(-50%, 0);
 	}
 }
