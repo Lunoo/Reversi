@@ -3,7 +3,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import Dialog from '../../shared/Dialog/Dialog';
 import {useStore} from '../../store/store';
 
-const ResultsDialog = () => {
+export const ResultsDialog = () => {
     const [{totalScore, currentPlayer, players}] = useStore();
     const [showDialog, setShowDialog] = useState(false);
     const [message, setMessage] = useState(null);
@@ -47,5 +47,3 @@ const ResultsDialog = () => {
         </Dialog>
     );
 };
-
-export default ResultsDialog;

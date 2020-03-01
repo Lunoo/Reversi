@@ -1,10 +1,8 @@
 import React from 'react';
 
 import styles from './App.module.scss';
-import Header from './containers/Header/Header';
-import Board from './containers/Board/Board';
-import UserPanel from './containers/UserPanel/UserPanel';
-import ResultsDialog from './components/ResultsDialog/ResultsDialog';
+import {Header, Board, UserPanel} from './containers';
+import {ResultsDialog} from './components';
 
 const App = () => {
     document.body.classList.add('green');

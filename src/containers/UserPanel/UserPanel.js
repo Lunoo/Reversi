@@ -3,11 +3,10 @@ import Button from '@material-ui/core/Button';
 import {CSSTransition} from 'react-transition-group';
 
 import styles from './UserPanel.module.scss';
-import PlayerCard from '../../components/PlayerCard/PlayerCard';
-import Square from '../../components/Square/Square';
+import {PlayerCard, Square} from '../../components';
 import {useStore} from '../../store/store';
 
-const UserPanel = () => {
+export const UserPanel = () => {
     const [{players, currentPlayer, gameStart, totalScore}, dispatch] = useStore();
 
     const startGame = (robotsNumber) => {
@@ -104,5 +103,3 @@ const UserPanel = () => {
         </div>
     );
 };
-
-export default UserPanel;

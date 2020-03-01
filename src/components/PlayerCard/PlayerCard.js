@@ -3,7 +3,7 @@ import {CSSTransition} from 'react-transition-group';
 
 import styles from './PlayerCard.module.scss';
 
-const PlayerCard = props => (
+export const PlayerCard = props => (
     <CSSTransition
         in={props.show}
         timeout={300}
@@ -17,5 +17,3 @@ const PlayerCard = props => (
         </figure>
     </CSSTransition>
 );
-
-export default PlayerCard;

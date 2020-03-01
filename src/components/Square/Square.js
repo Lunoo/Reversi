@@ -1,9 +1,9 @@
 import React from 'react';
 
 import styles from './Square.module.scss';
-import Disk from '../Disk/Disk';
+import {Disk} from '../Disk/Disk';
 
-const Square = props => {
+export const Square = props => {
     const classes = [styles.square];
     if (props.isMarked) {
         classes.push(styles.withMark);
@@ -25,5 +25,3 @@ const Square = props => {
         </div>
     );
 };
-
-export default Square;

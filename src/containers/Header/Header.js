@@ -2,10 +2,8 @@ import React from 'react';
 
 import styles from './Header.module.scss';
 
-const Header = () => {
+export const Header = React.memo(() => {
     return (
         <header className={styles.header}>Reversi</header>
     );
-};
-
-export default React.memo(Header);
+});

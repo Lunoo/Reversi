@@ -1,9 +1,13 @@
 import React, {useState, useEffect, useCallback} from 'react';
 
 import styles from './Board.module.scss';
-import Square from '../../components/Square/Square';
+import {Square} from '../../components';
 import {
-    copyBoardState, getAllCapturedDisksWithColor, getAllValidMovesForPlayer, getKey, getNextPlayer
+    copyBoardState,
+    getAllCapturedDisksWithColor,
+    getAllValidMovesForPlayer,
+    getKey,
+    getNextPlayer
 } from './board-utils';
 import {getNextMove} from './robot-newbie';
 import {useStore} from '../../store/store';
@@ -38,7 +42,7 @@ const INITIAL_BOARD_STATE = {
 };
 const INITIAL_VALID_MOVES = [32, 23, 54, 45];
 
-const Board = () => {
+export const Board = () => {
     const [{currentPlayer, gameStart, players}, dispatch] = useStore();
     const isCurrentPlayerHuman = players[currentPlayer]?.isHuman;
 
@@ -214,5 +218,3 @@ const Board = () => {
         </div>
     );
 };
-
-export default Board;
