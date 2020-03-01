@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Reversi/precache-manifest.0eda7135bf0375b46544d17e64506a5c.js"
+  "/Reversi/precache-manifest.4a0b726ed9196aa1c579162724a0ef9e.js"
 );
 
 self.addEventListener('message', (event) => {
