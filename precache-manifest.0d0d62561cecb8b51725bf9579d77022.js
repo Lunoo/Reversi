@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5496b46c9f6e95c2c0af52e4d427b7b0",
+    "revision": "1169b458982f08a21edba73c553f65e0",
     "url": "/Reversi/index.html"
   },
   {
-    "revision": "3c02981e0f82c86df9f3",
-    "url": "/Reversi/static/css/main.4ac8d8ce.chunk.css"
+    "revision": "dbb0b6bcd7f7f1076580",
+    "url": "/Reversi/static/css/main.c90eafd7.chunk.css"
   },
   {
     "revision": "6cc5d970e84c2345aec1",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Reversi/static/js/2.50207f3d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "3c02981e0f82c86df9f3",
+    "revision": "dbb0b6bcd7f7f1076580",
     "url": "/Reversi/static/js/main.751aea7c.chunk.js"
   },
   {
