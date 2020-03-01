@@ -1,0 +1,21 @@
+.dialog {
+	.header {
+		width: 350px;
+		margin: 0;
+		padding: 8px 16px;
+	}
+	
+	h6 {
+		font-weight: bold;
+	}
+	
+	.content {
+		padding: 24px 16px 16px;
+	}
+	
+	.closeButton {
+		position: absolute;
+		right: 4px;
+		top: 4px;
+	}
+}

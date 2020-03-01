@@ -58,12 +58,12 @@ const Board = () => {
         };
     };
 
-    const showValidMove = (key) => {
-        return isCurrentPlayerHuman && validMoves.includes(key);
-    };
+    const showValidMove = useCallback((key, isHuman) => {
+        return isHuman && validMoves.includes(key);
+    }, [validMoves]);
 
     const showCapturedDisks = (key) => {
-        if (!showValidMove(key)) {
+        if (!showValidMove(key, isCurrentPlayerHuman)) {
             return;
         }
 
@@ -102,8 +102,8 @@ const Board = () => {
         setBoardState(newBoardState);
     };
 
-    const squareClicked = useCallback((key, isCurrentPlayerHuman) => {
-        if (!isCurrentPlayerHuman || !validMoves.includes(key)) {
+    const squareClicked = useCallback((key, isHuman) => {
+        if (!showValidMove(key, isHuman)) {
             return;
         }
 
@@ -147,20 +147,21 @@ const Board = () => {
 
         setBoardState(newBoardState);
         setValidMoves(possibleMoves);
-    }, [currentPlayer, validMoves, boardState, dispatch]);
+    }, [currentPlayer, boardState, dispatch, showValidMove]);
 
     useEffect(() => {
+        // add robot logic
         let timeout;
         if (isCurrentPlayerHuman === false) {
-            const nextPlayer = getNextPlayer(currentPlayer);
-            const newBoardState = copyBoardState(boardState);
-
-            const nextMove = getNextMove(validMoves, newBoardState, nextPlayer);
-            if (typeof nextMove !== 'number') {
-                return;
-            }
-
             timeout = setTimeout(() => {
+                const nextPlayer = getNextPlayer(currentPlayer);
+                const newBoardState = copyBoardState(boardState);
+                const nextMove = getNextMove(validMoves, newBoardState, nextPlayer);
+
+                if (typeof nextMove !== 'number') {
+                    return;
+                }
+
                 squareClicked(nextMove, true);
             }, 1000);
         }
@@ -173,6 +174,7 @@ const Board = () => {
     }, [currentPlayer, isCurrentPlayerHuman, boardState, validMoves, squareClicked]);
 
     useEffect(() => {
+        // init game board
         if (gameStart) {
             setBoardState(INITIAL_BOARD_STATE);
             setValidMoves(INITIAL_VALID_MOVES);
@@ -191,7 +193,7 @@ const Board = () => {
             newBoardState.push(
                 <Square key={key}
                         isMarked={[2, 6].includes(x) && [2, 6].includes(y)}
-                        isValidMove={showValidMove(key) ? currentPlayer : null}
+                        isValidMove={showValidMove(key, isCurrentPlayerHuman) ? currentPlayer : null}
                         isNotEmpty={squareState?.isNotEmpty}
                         mayBeCaptured={squareState?.mayBeCaptured}
                         color={squareState?.color}
