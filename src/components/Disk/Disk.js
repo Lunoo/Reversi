@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './Disk.module.scss';
 
-const FACETS = 32;
+const FACETS = 16;
 
 export const Disk = props => {
     const classes = [styles.wrapper, styles[props.color]];

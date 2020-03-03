@@ -1,11 +1,11 @@
 import React from 'react';
-import {Dialog, DialogContent, DialogContentText, DialogTitle, Slide, IconButton, Typography} from '@material-ui/core';
+import {Dialog, DialogContent, DialogContentText, DialogTitle, Grow, IconButton, Typography} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 import styles from './Dialog.module.scss';
 
 const Transition = React.forwardRef((props, ref) => {
-    return <Slide direction="up" ref={ref} {...props} />;
+    return <Grow ref={ref} {...props} />;
 });
 
 const CustomDialogTitle = props => {

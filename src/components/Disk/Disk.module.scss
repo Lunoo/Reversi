@@ -141,7 +141,7 @@ $_precision: 10;
 
 .side {
 	// How many facets you want
-	$facets: 32;
+	$facets: 16;
 	// How many spokes you need
 	$spokes: $facets / 2;
 	// Help figure out the length of each facet
@@ -183,6 +183,7 @@ $_precision: 10;
 		}
 		
 		&:after {
+			display: none; // for optimisation
 			bottom: 0;
 			transform-origin: center bottom;
 		}

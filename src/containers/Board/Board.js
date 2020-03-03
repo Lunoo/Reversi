@@ -46,8 +46,8 @@ export const Board = () => {
     const [{currentPlayer, gameStart, players}, dispatch] = useStore();
     const isCurrentPlayerHuman = players[currentPlayer]?.isHuman;
 
-    const [boardState, setBoardState] = useState(INITIAL_BOARD_STATE);
-    const [validMoves, setValidMoves] = useState(INITIAL_VALID_MOVES);
+    const [boardState, setBoardState] = useState(EMPTY_BOARD_STATE);
+    const [validMoves, setValidMoves] = useState([]);
 
     const changeTotalScore = (boardState) => {
         const boardStateArray = Object.values(boardState);
