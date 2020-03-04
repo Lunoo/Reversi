@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dialog, DialogContent, DialogContentText, DialogTitle, Grow, IconButton, Typography} from '@material-ui/core';
+import {Dialog, DialogContent, DialogTitle, Grow, IconButton, Typography} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 import styles from './Dialog.module.scss';
@@ -34,10 +34,8 @@ export default props => (
             {props.headerText}
         </CustomDialogTitle>
 
-        <DialogContent className={styles.content} dividers>
-            <DialogContentText id="alert-dialog-slide-description">
-                {props.children}
-            </DialogContentText>
+        <DialogContent id="alert-dialog-slide-description" className={styles.content} dividers>
+            {props.children}
         </DialogContent>
     </Dialog>
 );
