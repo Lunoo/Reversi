@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Reversi/static/css/main.40ce3ddb.chunk.css",
+    "main.css": "/Reversi/static/css/main.1da53584.chunk.css",
     "main.js": "/Reversi/static/js/main.ee73f9d3.chunk.js",
     "main.js.map": "/Reversi/static/js/main.ee73f9d3.chunk.js.map",
     "runtime-main.js": "/Reversi/static/js/runtime-main.0a758d3a.js",
@@ -8,9 +8,9 @@
     "static/js/2.23d5d602.chunk.js": "/Reversi/static/js/2.23d5d602.chunk.js",
     "static/js/2.23d5d602.chunk.js.map": "/Reversi/static/js/2.23d5d602.chunk.js.map",
     "index.html": "/Reversi/index.html",
-    "precache-manifest.f63cfa50eaeb344be47372978fec055f.js": "/Reversi/precache-manifest.f63cfa50eaeb344be47372978fec055f.js",
+    "precache-manifest.2ad7f1674510fd473fb37b20a077f557.js": "/Reversi/precache-manifest.2ad7f1674510fd473fb37b20a077f557.js",
     "service-worker.js": "/Reversi/service-worker.js",
-    "static/css/main.40ce3ddb.chunk.css.map": "/Reversi/static/css/main.40ce3ddb.chunk.css.map",
+    "static/css/main.1da53584.chunk.css.map": "/Reversi/static/css/main.1da53584.chunk.css.map",
     "static/js/2.23d5d602.chunk.js.LICENSE.txt": "/Reversi/static/js/2.23d5d602.chunk.js.LICENSE.txt",
     "static/media/black-icon.jpg": "/Reversi/static/media/black-icon.ba59a848.jpg",
     "static/media/robot-black-icon.png": "/Reversi/static/media/robot-black-icon.15e05fad.png",
@@ -21,7 +21,7 @@
   "entrypoints": [
     "static/js/runtime-main.0a758d3a.js",
     "static/js/2.23d5d602.chunk.js",
-    "static/css/main.40ce3ddb.chunk.css",
+    "static/css/main.1da53584.chunk.css",
     "static/js/main.ee73f9d3.chunk.js"
   ]
 }
