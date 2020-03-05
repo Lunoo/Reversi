@@ -1,14 +1,26 @@
 button.helpButton {
 	position: absolute;
 	right: 0;
-	top: 0;
-	padding: 10px 12px;
+	top: 3px;
+	padding: 16px;
 	color: #dbdbdb;
 	opacity: .5;
 	transition: opacity .1s ease-in-out;
 	
+	svg {
+		font-size: 32px;
+	}
+	
 	&:hover {
 		opacity: 1;
+	}
+	
+	@media (max-width: 460px), (max-height: 760px) {
+		padding: 11px;
+		
+		svg {
+			font-size: 28px;
+		}
 	}
 }
 
